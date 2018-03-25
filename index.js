@@ -12,24 +12,24 @@ class SoundAlert {
       const warnings = stats.hasWarnings();
 
       const code = !errors && !warnings ? 'ok' : errors ? 'error' : 'warning';
-      this.playAlertSound(this.sounds[code]);
+      this.playAlertSound(this.sounds[code], code);
     });
   }
 
-  playAlertSound (sound) {
+  playAlertSound (sound, key) {
     let player = '';
     let filePath = null;
 
     if (process.platform === 'win32') {
-      player = path.resolve(__dirname, './dlcplayer/dlc') + ' -p'
+      player = path.resolve(__dirname, './dlcplayer/dlc') + ' -p';
     } else if (process.platform === 'darwin') {
-      player = 'afplay'
+      player = 'afplay';
     } else {
-      player = 'mpg123 -q'
+      player = 'mpg123 -q';
     }
 
     if (sound === true) {
-      filePath = `./sounds/${sound}`;
+      filePath = `./sounds/${key}.mp3`;
     } else if (typeof sound === 'string') {
       filePath = `../../${sound}`;
     }

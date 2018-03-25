@@ -2,6 +2,12 @@
 
 *Plays audio notifications when warnings / errors occured while building with webpack.*
 
+## Installation
+
+```bash
+$ npm i webpack-sound-plugin --save-dev
+```
+
 ```
 const SoundAlert = require('webpack-sound-plugin');
 
