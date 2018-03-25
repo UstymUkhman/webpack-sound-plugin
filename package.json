@@ -3,7 +3,7 @@
   "description": "Plays audio notifications when warnings / errors occured while building with webpack.",
   "homepage": "https://github.com/UstymUkhman/webpack-sound-plugin",
   "author": "Ustym Ukhman",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "dependencies": {},

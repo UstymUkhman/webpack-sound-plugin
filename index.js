@@ -8,16 +8,17 @@ class SoundAlert {
 
   apply (compiler) {
     compiler.plugin('done', stats => {
-      const hasErrors = stats.hasErrors();
-      const hasWarnings = stats.hasWarnings();
+      const errors = stats.hasErrors();
+      const warnings = stats.hasWarnings();
 
-      const code = !hasErrors && !hasWarnings ? 'ok' : hasErrors ? 'error' : 'warning';
-      this.playAlertSound(code);
+      const code = !errors && !warnings ? 'ok' : errors ? 'error' : 'warning';
+      this.playAlertSound(this.sounds[code]);
     });
   }
 
-  playAlertSound (alertCode) {
+  playAlertSound (sound) {
     let player = '';
+    let filePath = null;
 
     if (process.platform === 'win32') {
       player = path.resolve(__dirname, './dlcplayer/dlc') + ' -p'
@@ -27,10 +28,14 @@ class SoundAlert {
       player = 'mpg123 -q'
     }
 
-    if (this.sounds[alertCode] !== undefined) {
-      console.log(__dirname);
-      const soundFile = `../../sounds/${this.sounds[alertCode]}`;
-      exec(`${player} ${path.resolve(__dirname, soundFile)}`);
+    if (sound === true) {
+      filePath = `./sounds/${sound}`;
+    } else if (typeof sound === 'string') {
+      filePath = `../../${sound}`;
+    }
+
+    if (filePath) {
+      exec(`${player} ${path.resolve(__dirname, filePath)}`);
     }
   }
 }
